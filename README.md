@@ -11,7 +11,7 @@ IR NA PASTA "backend/bd"
 
 APOS ISSO, VOLTAR NA PASTA "backend"
     docker build -t api-vivoflix .
-    docker run -dp 3333:3333 --link pgvivoflix-container --name apivivoflix-container api-vivoflix
+    docker run -dp 3334:3333 --link pgvivoflix-container --name apivivoflix-container api-vivoflix
 
 ACESSAR LOCALHOST SEM MENCIONAR PORTA
 
