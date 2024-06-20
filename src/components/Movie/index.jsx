@@ -23,7 +23,6 @@ const Movie = () => {
   const getMovie = async (url) => {
     try {
       const res = await fetch(url);
-      console.log(res.status)
       const data = await res.json();
       if(res.status != 200){
         navigate('/404')
@@ -37,9 +36,10 @@ const Movie = () => {
   const getRegistro = async () => {
     const registros = await auth.getRegistro(id, auth.user.id)
     const data = JSON.parse(registros)
-    if(data.length >= 1){ 
-      setFavorito(data[0].favorite)
-      setDepois(data[0].watch_later)
+    const r = (data.getMovie)
+    if(r.length >= 1){ 
+      setFavorito(r[0].favorite)
+      setDepois(r[0].watch_later)
     }
     
   }

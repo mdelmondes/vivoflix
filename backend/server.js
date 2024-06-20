@@ -101,7 +101,7 @@ server.post('/movie/get', async (req, res) => {
     const getMovie = await database.getMovie({movieId, userId})
     
     if (getMovie) {
-        return res.status(201).send({statusCode: 201, msg: "Registro resgatado com sucesso"})
+        return res.status(201).send({statusCode: 201, getMovie})
     }
 })
 

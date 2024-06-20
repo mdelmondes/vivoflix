@@ -53,10 +53,7 @@ const Home = () => {
       }
     }
 
-    //const getAllRegistros = async () => {    }
-
     loadAll();
-    //getAllRegistros()
   }, []);
 
   return (
