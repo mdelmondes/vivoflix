@@ -1,8 +1,15 @@
-# React + Vite
+CLONAR O PROJETO
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+RODAR ESSE COMANDO ABAIXO
+    docker build -t vivolix .
 
-Currently, two official plugins are available:
+APÓS FINALIZAR O PROCESSO
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+RODAR ESSE COMANDO ABAIXO
+    docker run -p 80:80 vivolix
+
+ACESSAR LOCALHOST SEM MENCIONAR PORTA
+
+
+docker run -d -p 5432:5432 --name pgvivoflix-container pg-vivoflix
+docker exec -i pgvivoflix-container psql -U postgres < script.sql

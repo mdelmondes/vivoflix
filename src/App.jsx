@@ -7,8 +7,9 @@ import PublicRoutes from './routes/public.routes';
 import PrivateRoutes from './routes/private.routes';
 
 function App() {
-  const { auth } = useContext(AuthContext)
-  return auth ? <PrivateRoutes/> : <PublicRoutes/>
+  const { user } = useContext(AuthContext)
+  console.log(user)
+  return user ? <PrivateRoutes/> : <PublicRoutes/>
 }
 
 export default App;

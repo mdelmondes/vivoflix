@@ -1,14 +1,29 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import './index.css';
 import Tmdb from '../../../Tmdb';
 import MovieRow from '../MovieRow';
 import FeaturedMovie from '../FeaturedMovie';
+import { AuthContext } from '../../contexts/Auth/AuthContext';
 
+
+
+const moviesURL = 'https://api.themoviedb.org/3/movie/';
+const apiKey = '88e4d334c4c27155e9da9847ae68cf9b';
 
 const Home = () => {
 
   const [movieList, setMovieList] = useState([]);
   const [featuredData, setFeaturedData] = useState(null);
+  const [movieRegistrados, setMovieRegistrados] = useState([]);
+  const auth = useContext(AuthContext)
+
+  
+
+  const mergeArrays = () => {
+    const mergedArray = [...movieList, ...movieRegistrados];
+   
+    setMovieList(mergedArray);
+  };
 
   useEffect(() => {
     const loadAll = async () => {
@@ -22,9 +37,26 @@ const Home = () => {
       let chosen = originals[0].items.results[randomChosen];
       let chosenInfo = await Tmdb.getMovieInfo(chosen.id, 'tv');
       setFeaturedData(chosenInfo);
+
+      const registros = await auth.getAllRegistros(auth.user.id)
+      const data = JSON.parse(registros)
+      try{
+        const items = await Promise.all(
+          data.map(async (item) => {
+            const response = await fetch(`${moviesURL}${item.movie_id}?language=pt-BR&api_key=${apiKey}`);
+            return response.json();
+          })
+        );
+        setMovieRegistrados([{slug: 'favoritos', title: 'Favoritos / Quero assistir', items: {results: items}}])
+      } catch (error) {
+        console.error('Erro ao buscar dados:', error);
+      }
     }
 
+    //const getAllRegistros = async () => {    }
+
     loadAll();
+    //getAllRegistros()
   }, []);
 
   return (
@@ -32,8 +64,14 @@ const Home = () => {
       {featuredData && 
         <FeaturedMovie item={featuredData}/>
       }
+
       <section className="lists">
-        {movieList.map((item, key) => (
+        {movieRegistrados.map((item, key) => (          
+          <div>
+            <MovieRow key={key} title={item.title} itens={item.items}/>
+          </div>
+        ))}
+        {movieList.map((item, key) => (          
           <div>
             <MovieRow key={key} title={item.title} itens={item.items}/>
           </div>

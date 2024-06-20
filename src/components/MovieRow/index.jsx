@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import './index.css';
 import { RiArrowRightLine } from 'react-icons/ri';
 import { RiArrowLeftLine } from 'react-icons/ri';
+import { useNavigate } from "react-router-dom"
 
 const MovieRow = ({title, itens}) => {
+    const navigate = useNavigate()
     const [scrollX, setScrollX] = useState(0);
     const handleLeftArrow = () => {
         let x = scrollX + Math.round(window.innerWidth / 2);
@@ -22,6 +24,10 @@ const MovieRow = ({title, itens}) => {
         setScrollX(x)
     }
 
+    const toMovie = (id) => {
+        navigate(`/movie/${id}`)
+    }
+
     return (
         <div className="movieRow">
             <h2>{title}</h2>
@@ -37,13 +43,11 @@ const MovieRow = ({title, itens}) => {
                     width: itens.results.length * 150
                 }}>
                     {itens.results.length > 0 && itens.results.map((item,key) => (
-                        <a href={`/movie/${item.id}`}>
-                            <div key={key} className="movieRow--item">
-                                <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} />
-                            </div>
-                        </a>
+                        <div key={key} className="movieRow--item" onClick={() => toMovie(item.id)} >
+                            <img src={`https://image.tmdb.org/t/p/w300${item.poster_path}`} alt={item.original_title} />                            
+                        </div>                        
                     ))}
-                </div>               
+                </div>
             </div>
         </div>
     )

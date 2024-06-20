@@ -41,3 +41,19 @@
 .navbar a:hover::before{
     width: 100%;
 }
+
+.navbar {
+    display: flex;
+    gap: .5rem;
+}
+
+.form {
+    display: flex;
+    gap: .5rem;
+}
+
+.navbar input {
+    padding: .2rem .8rem;
+    border-radius: 4px;
+    border: none;
+}

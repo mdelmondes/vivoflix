@@ -1,24 +1,24 @@
 import { useState, useContext } from "react"
 import { AuthContext } from "../../contexts/Auth/AuthContext"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation  } from "react-router-dom"
 import './index.css';
 
 const Login = () => {
-    const {setAuth, auth} = useContext(AuthContext)
+    const auth = useContext(AuthContext)
     const navigate = useNavigate()
-    //const [msgError, setMsgError] = useState('')
+    const [msgError, setMsgError] = useState('')
+    const [msg, setMsg] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const handleLogin = async () => {
-        if(email && password) {
-            setAuth(true)
-           // const isLogged = await auth.signin(email, password)
-
-            //if(!isLogged){
-            //    setMsgError('Email e/ou senha inválidos!')
-            //    return false
-            //}
+        if(email && password) {           
+           const isLogged = await auth.signin(email, password)
+            
+            if(!isLogged){
+                setMsgError('Email e/ou senha inválidos!')
+                return false
+            }
 
             navigate('/home')
         } else {
@@ -27,7 +27,7 @@ const Login = () => {
     }
 
     const handleRegister = async () => {       
-        //navigate('/register')          
+        navigate('/register')
     }
 
     return (
@@ -47,7 +47,8 @@ const Login = () => {
                             <button type="button" className="buttons_login" onClick={handleRegister}>Ainda não tem conta? Crie agora</button>
                         </div>
                         <div>
-                            <p style={{color: 'red'}}>qwe</p>
+                            <p style={{color: 'red'}}>{msgError}</p>
+                            {msg && <p style={{color: 'green'}}>{msg}</p>}
                         </div>
                     </form>
                 </div>
