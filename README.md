@@ -1,4 +1,4 @@
-## CLONAR O PROJETO
+## CLONAR O PROJETO - VIVOFLIX
 
 - RODAR ESSE COMANDO ABAIXO
     <p>docker build -t vivoflix . </p>
